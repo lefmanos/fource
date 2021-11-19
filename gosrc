@@ -43,7 +43,7 @@ function nav(){
 		done
 	else
 		echo opening $1
-		(curl https://golang.org/src/$1 2> /dev/null > ${1##*/} && \
+		(curl https://golang.org/src/$1?m=text 2> /dev/null > ${1##*/} && \
 		nvim ${1##*/}; rm ${1##*/})
 		return 0
 	fi
