@@ -26,7 +26,7 @@ Currently I'm working on github public repo's scrapping.
 
 Any suggestions are welcome!
 
-## Install
+## Installation
 
 No automatic installer nor dependancy checker exists yet.
 Just place gosrc file somewhere into PATH, run it and fuzzy-find through the
