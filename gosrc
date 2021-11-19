@@ -1,0 +1,52 @@
+#!/bin/sh
+# A simple tool to navigate Go source code
+#  7/10/2021 Lef
+#  
+#  dependancies:
+#      dmenu or fzf or rofi  
+#      curl
+#      awk
+#      vim
+#
+# It is your choice which fuzzy tool you will use. 
+# If there is none of these (dmenu, fzf or rofi) present in your system, 
+# you can use any other utility which reads stdin and prints the chosen line
+# in stdout. 
+# If you don't understand this paragraph please use your web browser and your mouse
+#
+# gosrc version 0.0.1
+#
+# note that it is heavily coupled to golang.org/src html source structure!
+#
+# Use the Fource!
+
+# Uncommend prefered fuzzy finder/menu
+# ...
+FUZZCOMMAND=fzf
+#FUZZCOMMAND="rofi -dmenu"
+#FUZZCOMMAND=dmenu
+
+function nav(){
+	prev=$2
+
+	if [ $1 = ${1%.go} ]; then 
+		while true; do
+			fource=`curl https://golang.org/src/$1 2> /dev/null\
+			| grep left \
+			| awk '{FS="\""; print $4}' \
+			| $FUZZCOMMAND`
+			if [ -n "$fource" ]; then
+				nav $1$fource 
+			else
+				return 1
+			fi
+		done
+	else
+		echo opening $1
+		(curl https://golang.org/src/$1 2> /dev/null > ${1##*/} && \
+		nvim ${1##*/}; rm ${1##*/})
+		return 0
+	fi
+}
+
+nav $1
