@@ -1,7 +1,10 @@
 # force
 
 A simple tool to navigate online source code in the terminal.
- 
+
+golang.org/src moved and changed structure. gosrc is currently broken
+until scraping is updated
+
 ## dependancies
 
 ### dmenu or fzf or rofi
