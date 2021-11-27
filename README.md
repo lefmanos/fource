@@ -1,4 +1,4 @@
-# force
+# fource
 
 A simple tool to navigate online source code in the terminal.
 
